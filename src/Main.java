@@ -1,5 +1,5 @@
 import java.util.Random;
-
+//test
 public class Main {
 	
 	static Environment env;
