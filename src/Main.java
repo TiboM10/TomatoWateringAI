@@ -71,6 +71,8 @@ public class Main {
 			//System.out.println(hist);
 			
 			if(i%1000 == 0) System.out.println(" reward: " + hist.getTotalReward());
+			
+			//test
 		}
 	}
 }
