@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 //test
 public class Main {
@@ -13,7 +15,8 @@ public class Main {
 		
 		int actionCount = 100;
 		
-		learn(100000, actionCount);
+		List<Double> avgRewards = learn(100000, actionCount);
+		//avgRewards.plot;
 		//System.out.println(learner);
 		
 		//Thread.sleep(5000);
@@ -45,7 +48,9 @@ public class Main {
 		}
 	}
 	
-	private static void learn(int episodes, int steps) {
+	private static List<Double> learn(int episodes, int steps) {
+		List<Double> rewards = new ArrayList<>();
+		List<Double> avgRewards = new ArrayList<>();
 		for(int i = 0; i < episodes; i++) {
 			if(i%1000 == 0) System.out.print("Episode: " + i);
 			
@@ -72,7 +77,20 @@ public class Main {
 			
 			if(i%1000 == 0) System.out.println(" reward: " + hist.getTotalReward());
 			
-			//test
+			//Compute average reward over 1000 episodes
+			rewards.add(hist.getTotalReward());
+			if ((i - 1) % 1000 == 0){
+				double s = 0;
+				for (double reward : rewards){
+					s+=reward;
+				}
+				double avg = s / rewards.size();
+				avgRewards.add(avg);
+				rewards.clear();
+				
+			}
+			
 		}
+		return avgRewards;
 	}
 }
